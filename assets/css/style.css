@@ -3637,11 +3637,11 @@ input[type=search]::-webkit-search-results-decoration {
 
 .ico_partner_video .logo_video {
   z-index: 1;
-  height: 300px;
+  height: 400px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding: 0 36px;
+  padding: 0 15px;
   position: relative;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -3694,7 +3694,7 @@ input[type=search]::-webkit-search-results-decoration {
 
 .ico_partner_video .logo_video video {
   opacity: 0.6;
-  max-width: 150px;
+  max-width: 210px;
   -webkit-transition: var(--bs-transition);
   transition: var(--bs-transition);
 }
@@ -3765,7 +3765,7 @@ input[type=search]::-webkit-search-results-decoration {
 }
 
 .tokenomics_block>li:nth-child(1) .percent {
-  background-color: #FC1CCF;
+  background-color: lch(58.07% 96.77 337.22);
 }
 
 .tokenomics_block>li:nth-child(2) .percent {
