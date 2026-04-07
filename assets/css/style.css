@@ -4554,7 +4554,7 @@ input[type=search]::-webkit-search-results-decoration {
 }
 
 .ico_site_footer .pagelist_block {
-  margin-bottom: 58px;
+  margin-bottom: 70px;
 }
 
 .ico_site_footer .middle_area {
@@ -7684,6 +7684,8 @@ Responsive For Mobile & Tablet Devices
 
   .pagelist_block.unordered_list {
     gap: 14px 40px;
+    position: relative;
+    top: -6px;
   }
 
   .ico_iconbox_block .iconbox_description {
@@ -8007,6 +8009,14 @@ Responsive For Mobile & Tablet Devices
 
 /* Media Screen 1199px - End
 ================================================== */
+@media (max-width: 1099px) {
+  .pagelist_block.unordered_list {
+    gap: 14px 40px;
+    position: relative;
+    top: -28px;
+  }
+}
+
 /* Media Screen 1024px - Start
 ================================================== */
 @media (max-width: 1024px) {
