@@ -362,5 +362,88 @@
   // Language Select - End
   // --------------------------------------------------
 
+// Video Scrubbing Logic - Start
+  // --------------------------------------------------
+  function initVideoScrub() {
+    const scrubContainer = document.querySelector('#video_scrub_01');
+    if (!scrubContainer) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const video = scrubContainer.querySelector('video');
+    const triggerEl = scrubContainer;
+    const pinContainer = scrubContainer.querySelector('.pinned-container');
+    const overlays = scrubContainer.querySelectorAll('.overlay-item');
+    
+    // Configuración
+    const slidesCount = overlays.length; 
+    const minDuration = slidesCount + 1; // Ajusta la "duración" física del scroll
+
+    // Función principal para instanciar GSAP una vez que el video tiene metadata
+    const setupScrollTrigger = () => {
+      
+      // 1. Pinned Video ScrollTrigger
+      ScrollTrigger.create({
+        trigger: triggerEl,
+        pin: pinContainer,
+        start: 'top top',
+        // El end define cuánto scroll hay que hacer para que termine el video
+        end: () => `+=${window.innerHeight * minDuration}px`,
+        scrub: 0.5, // 0.5s de delay para suavizar el scrub junto con tu smooth-scroll.js
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          // Animamos el currentTime del video basado en el progreso
+          if (!isNaN(video.duration)) {
+            video.currentTime = self.progress * video.duration;
+          }
+        }
+      });
+
+      // 2. Animaciones de entrada para las Tarjetas
+      overlays.forEach((overlay, i) => {
+        // Distribuimos las tarjetas a lo largo del contenedor absoluto
+        const topPercent = (i / (minDuration - 1)) * 100;
+        overlay.style.setProperty('--top-percent', `${topPercent}%`);
+
+        const animationEl = overlay.querySelector('.card-content');
+        
+        // Estado inicial
+        gsap.set(animationEl, { y: 100, opacity: 0, scale: 0.9 });
+
+        // Animación al hacer scroll
+        gsap.to(animationEl, {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          scrollTrigger: {
+            trigger: overlay.querySelector('overlay-item'),
+            //start: () => `top ${window.innerHeight * 0.9}px`,
+            //end: () => `bottom ${window.innerHeight * 0.1}px`,
+            scrub: true,
+            invalidateOnRefresh: true,
+            controls:true
+            
+          }
+        });
+      });
+
+      ScrollTrigger.refresh();
+    };
+
+    // Asegurarnos de que el video carga antes de calcular duraciones
+    if (video.readyState >= 2) {
+      setupScrollTrigger();
+    } else {
+      video.addEventListener('loadedmetadata', setupScrollTrigger);
+    }
+  }
+
+  // Llamar la función cuando cargue la ventana para asegurar dimensiones
+  $(window).on("load", function () {
+    initVideoScrub();
+  });
+  // Video Scrubbing Logic - End
+  // --------------------------------------------------
+
 
 })(jQuery);

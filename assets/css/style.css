@@ -263,6 +263,10 @@ mark {
   margin: -15px;
 }
 
+.p-0{
+  padding: 0;
+}
+
 [class*=col-] {
   padding: 15px;
 }
@@ -3146,7 +3150,7 @@ input[type=search]::-webkit-search-results-decoration {
 }
 
 .ico_accordion .iconlist_block .iconlist_label {
-  font-size: 114px;
+  font-size: 30px;
   font-weight: 400;
   line-height: 26px;
   color: var(--bs-body-color);
@@ -5379,8 +5383,15 @@ input[type=search]::-webkit-search-results-decoration {
   border: 1px solid var(--bs-border-color);
 }
 
+.rod{
+  display: flex;
+  flex-wrap:nowrap;
+  gap: 10px;
+  padding: 0 5px;
+}
+
 .whitepaper_info_wrap [class*=info_wrap_] {
-  padding: 40px 130px 40px 40px;
+  border-bottom: 1px solid var(--bs-border-color);
 }
 
 .whitepaper_info_wrap [class*=info_wrap_]:not(:last-child) {
@@ -5410,7 +5421,7 @@ input[type=search]::-webkit-search-results-decoration {
 
 .whitepaper_image_wrap {
   z-index: 1;
-  height: 740px;
+  height: 690px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -5466,6 +5477,11 @@ input[type=search]::-webkit-search-results-decoration {
   transform: translateX(-50%);
   background: -webkit-gradient(linear, left bottom, left top, from(#FB3AD4), color-stop(#5A19AB), to(#010314));
   background: linear-gradient(0deg, #FB3AD4, #5A19AB, #010314);
+}
+
+.safire {
+  
+  z-index: 99999999;
 }
 
 .meme_video_popup {
@@ -8308,6 +8324,7 @@ Responsive For Mobile & Tablet Devices
 
   .whitepaper_info_wrap [class*=info_wrap_] {
     padding: 30px;
+    border-bottom: 1px solid var(--bs-border-color);
   }
 
   .ico_site_footer .middle_area>*:first-child,
@@ -8741,6 +8758,10 @@ Responsive For Mobile & Tablet Devices
 
   .whitepaper_info_wrap .ico_creative_btn {
     margin-top: 40px;
+  }
+
+  .rod {
+    display: table-column;
   }
 
   .event_card_block .event_info {
@@ -9426,4 +9447,90 @@ Responsive For Mobile & Tablet Devices
 }
 
 /* Media Screen 320px - End
+================================================== */
+
+/* ==================================================
+   VIDEO SCRUB COMPONENT
+================================================== */
+#video_scrub_01 {
+    --media-bg-color: #070710;
+    --card-bg-color: 15, 16, 33; /* RGB de tu --bs-light */
+    --card-text-color: #D4D5F1;  /* Tu --bs-body-color */
+    --min-height: 100vh;
+    --spacing: 2rem;
+    background-color: var(--media-bg-color);
+    overflow: hidden;
+}
+
+#video_scrub_01 *::-webkit-media-controls-play-button,
+#video_scrub_01 *::-webkit-media-controls-start-playback-button {
+    display: none !important;
+    -webkit-appearance: none;
+}
+
+#video_scrub_01 .pinned-container,
+#video_scrub_01 .media-container {
+    height: 100vh;
+    min-height: var(--min-height);
+    background-color: var(--media-bg-color);
+}
+
+.overlay-container {
+  position: absolute !important;
+}
+/*
+#video_scrub_01 .overlay-container {
+    display: block;
+    height: calc(100vh * 3); /* 3 = número de slides/overlays */
+    /*margin-top: calc(max(var(--min-height), 100vh) * -1);
+    position: absolute;
+    pointer-events: none;
+}
+
+#video_scrub_01 .overlay-item {
+    display: block;
+    height: 100vh;
+    left: 0;
+    position: absolute;
+    top: var(--top-percent, 0);
+    width: 100%;
+}
+
+#video_scrub_01 .card-container {
+    display: block;
+    position: relative;
+}
+
+#video_scrub_01 .card-content {
+    max-width: 60ch;
+    transform-origin: center;
+    position: relative;
+    pointer-events: auto; /* Para que se pueda seleccionar el texto *//*
+}
+
+#video_scrub_01 .card-content:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(var(--card-bg-color), 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 20px;
+    border: 1px solid var(--bs-primary);
+    pointer-events: none;
+    z-index: -1;
+}
+
+#video_scrub_01 .card-content .text-container {
+    color: var(--card-text-color);
+    padding: calc(var(--spacing) * 2) var(--spacing);
+}
+
+#video_scrub_01 .text-container h2 {
+    color: var(--bs-white);
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+*/
+/*VIDEO SCRUB COMPONENT
 ================================================== */
