@@ -364,7 +364,7 @@
 
 // Video Scrubbing Logic - Start
   // --------------------------------------------------
-  function initVideoScrub() {
+ function initVideoScrub() {
     const scrubContainer = document.querySelector('#video_scrub_01');
     if (!scrubContainer) return;
 
@@ -389,12 +389,14 @@
         start: 'top top',
         // El end define cuánto scroll hay que hacer para que termine el video
         end: () => `+=${window.innerHeight * minDuration}px`,
-        scrub: 0.5, // 0.5s de delay para suavizar el scrub junto con tu smooth-scroll.js
+        scrub: 0.7, // 0.5s de delay para suavizar el scrub junto con tu smooth-scroll.js
         invalidateOnRefresh: true,
+        //markers: true,
         onUpdate: (self) => {
           // Animamos el currentTime del video basado en el progreso
           if (!isNaN(video.duration)) {
             video.currentTime = self.progress * video.duration;
+            
           }
         }
       });
@@ -403,7 +405,7 @@
       overlays.forEach((overlay, i) => {
         // Distribuimos las tarjetas a lo largo del contenedor absoluto
         const topPercent = (i / (minDuration - 1)) * 100;
-        overlay.style.setProperty('--top-percent', `${topPercent}%`);
+        //overlay.style.setProperty('--top-percent', `${topPercent}%`);
 
         const animationEl = overlay.querySelector('.card-content');
         
@@ -417,11 +419,14 @@
           scale: 1,
           scrollTrigger: {
             trigger: overlay.querySelector('overlay-item'),
-            //start: () => `top ${window.innerHeight * 0.9}px`,
-            //end: () => `bottom ${window.innerHeight * 0.1}px`,
+            //start:`center top`,
+            //end: `center 300px`,
+
+            //start: () => top ${window.innerHeight * 0.9}px`,
+            //end: () => bottom ${window.innerHeight * 0.1}px`,
             scrub: true,
             invalidateOnRefresh: true,
-            controls:true
+            markers: true,
             
           }
         });
@@ -442,6 +447,84 @@
   $(window).on("load", function () {
     initVideoScrub();
   });
+  
+/*
+function initVideoScrub() {
+  const scrubContainer = document.querySelector('#video_scrub_01');
+  if (!scrubContainer) return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const video = scrubContainer.querySelector('video');
+  const overlays = scrubContainer.querySelectorAll('.overlay-item');
+
+  const setupScrollTrigger = () => {
+    // 1. Creamos el Timeline Maestro. 
+    // Pineamos TODO el contenedor padre, así los textos se quedan con el video.
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: scrubContainer,
+        pin: true,
+        start: 'top top',
+        end: () => `+=${window.innerHeight * (overlays.length + 1)}px`, // Altura dinámica
+        scrub: 1, // Añade un poco de suavidad (1 segundo de catch-up)
+        invalidateOnRefresh: true,
+      }
+    });
+
+    // 2. Animamos el tiempo del video (va de 0 a su duración total)
+    // El video ocupará todo el "tiempo" del timeline (duration: 1)
+    tl.to(video, {
+      currentTime: video.duration || 1,
+      ease: 'none',
+      duration: 1 
+    }, 0);
+
+    // 3. Matemáticas para sincronizar las tarjetas
+    const cardDuration = 1 / overlays.length; 
+
+    overlays.forEach((overlay, i) => {
+      const animationEl = overlay.querySelector('.card-content');
+      const startTime = i * cardDuration; 
+
+      // Estado inicial (Abajo, transparentes y ligeramente pequeñas)
+      gsap.set(animationEl, { y: 80, opacity: 0, scale: 0.95 });
+
+      // Fade In de la tarjeta (Toma el 30% del tiempo de esa sección)
+      tl.to(animationEl, {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        ease: 'power2.out',
+        duration: cardDuration * 0.3
+      }, startTime);
+
+      // Fade Out de la tarjeta (Toma el 30% del tiempo, se dispara antes de la siguiente)
+      // Opcional: Si quieres que la última tarjeta se quede visible, añade: if (i !== overlays.length - 1) {
+      tl.to(animationEl, {
+        y: -80,
+        opacity: 0,
+        scale: 1.05,
+        ease: 'power2.in',
+        duration: cardDuration * 0.3
+      }, startTime + (cardDuration * 0.7)); 
+      // } // (cierre del if opcional)
+    });
+  };
+
+  // Asegurarnos de que el video haya cargado sus metadatos antes de calcular duraciones
+  if (video.readyState >= 2) {
+    setupScrollTrigger();
+  } else {
+    video.addEventListener('loadedmetadata', setupScrollTrigger);
+  }
+}
+// Llama a la función cuando cargue la ventana para asegurar dimensiones
+  $(window).on("load", function () {
+    initVideoScrub();
+  });
+*/
+
   // Video Scrubbing Logic - End
   // --------------------------------------------------
 
