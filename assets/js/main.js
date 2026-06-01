@@ -1,0 +1,532 @@
+// ==================================================
+// * Project Name   :  Coinpay - Crypto Currency Site Template.
+// * File           :  JS Base
+// * Version        :  1.0.0
+// * Author         :  XpressBuddy (https://themeforest.net/user/xpressbuddy/portfolio)
+// * Developer      :  webrok (https://www.fiverr.com/webrok?up_rollout=true)
+// ==================================================
+
+(function ($) {
+  "use strict";
+
+  // Back To Top - Start
+  // --------------------------------------------------
+  $(window).scroll(function () {
+    if ($(this).scrollTop() > 200) {
+      $('.backtotop:hidden').stop(true, true).fadeIn();
+    } else {
+      $('.backtotop').stop(true, true).fadeOut();
+    }
+  });
+  $(".scroll").on('click', function () {
+    $("html, body").animate({ scrollTop: 0 }, 0);
+    return false;
+  });
+  // Back To Top - End
+  // --------------------------------------------------
+
+  // Preloader and AOS Animation Load - Start
+  // --------------------------------------------------
+  $(window).on("load", function () {
+    $("#preloader").hide();
+    AOS.init({
+      once: true,
+    });
+  });
+  // Preloader and AOS Animation Load - End
+  // --------------------------------------------------
+
+  // Mobile Menu Button Class Chnage - Start
+  // --------------------------------------------------
+  $(".mobile_menu_btn").on('click', function () {
+    $(".mobile_menu_btn > i").toggleClass("active");
+  });
+  // Mobile Menu Button Class Chnage - End
+  // --------------------------------------------------
+
+  // Sticky Header - Start
+  // --------------------------------------------------
+  $(window).on('scroll', function () {
+    if ($(this).scrollTop() > 0) {
+      $('.site_header').addClass("sticky")
+    } else {
+      $('.site_header').removeClass("sticky")
+    }
+  });
+  // Sticky Header - End
+  // --------------------------------------------------
+
+  // Scrollspy Effect - Start
+  // --------------------------------------------------
+  $('.scrollspy_btn[href^="#"]').on('click', function (event) {
+    event.preventDefault();
+    var targetClass = $(this).attr('href');
+    var $targetElement = $(targetClass);
+    if ($targetElement.length) {
+      var targetPosition = $targetElement.offset().top;
+      $('html, body').animate(
+        {
+          scrollTop: targetPosition,
+        },
+        0
+      );
+    }
+  });
+  // Scrollspy Effect - End
+  // --------------------------------------------------
+
+  // Videos & Images popup - Start
+  // --------------------------------------------------
+  $('.video_popup_block').magnificPopup({
+    type: 'iframe',
+    preloader: false,
+    removalDelay: 160,
+    mainClass: 'mfp-fade',
+    fixedContentPos: false
+  });
+
+  $('.zoom-gallery').magnificPopup({
+    delegate: '.popup_image',
+    type: 'image',
+    closeOnContentClick: false,
+    closeBtnInside: false,
+    mainClass: 'mfp-with-zoom mfp-img-mobile',
+    gallery: {
+      enabled: true
+    },
+    zoom: {
+      enabled: true,
+      duration: 300,
+      opener: function (element) {
+        return element.find('img');
+      }
+    }
+  });
+  // Videos & Images popup - End
+  // --------------------------------------------------
+
+  // Odometer Counter - Start
+  // --------------------------------------------------
+  jQuery('.odometer').appear(function (e) {
+    var odo = jQuery(".odometer");
+    odo.each(function () {
+      var countNumber = jQuery(this).attr("data-count");
+      jQuery(this).html(countNumber);
+    });
+  });
+  // Odometer Counter - End
+  // --------------------------------------------------
+
+  // multy count down - start
+  // --------------------------------------------------
+  $('.countdown_timer_block').each(function () {
+    $('[data-countdown]').each(function () {
+      var $this = $(this), finalDate = $(this).data('countdown');
+      $this.countdown(finalDate, function (event) {
+        var $this = $(this).html(event.strftime(''
+          + '<li class="days_count"><span>%D</span><small>Days</small></li>'
+          + '<li class="hours_count"><span>%H</span><small>Hours</small></li>'
+          + '<li class="minutes_count"><span>%M</span><small>Minutes</small></li>'
+          + '<li class="seconds_count"><span>%S</span><small>Seconds</small></li>'));
+      });
+    });
+  });
+  // multy count down - End
+  // --------------------------------------------------
+
+  // Copy Button - Start
+  // --------------------------------------------------
+  $(".copy_btn").on("click", function () {
+    var $this = $(this);
+    $this.text("Copied!");
+    setTimeout(function () {
+      $this.text("Copy");
+    }, 2000);
+
+    console.time("time1");
+    var temp = $("<textarea>");
+    $("body").append(temp);
+    temp.val($(".code mark").text());
+    temp.select();
+    try {
+      document.execCommand("copy");
+    } catch (err) {
+      console.error("Copy failed", err);
+    }
+    temp.remove();
+    console.timeEnd("time1");
+  });
+  // Copy Button - End
+  // --------------------------------------------------
+
+  // Blog Carousel - Start
+  // --------------------------------------------------
+  const blogCarouselBlock = new Swiper('.blog_carousel_block', {
+    loop: true,
+    speed: 1000,
+    grabCursor: false,
+    slidesPerView: 1,
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: true,
+    },
+    pagination: {
+      el: ".bc-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".bc-button-next",
+      prevEl: ".bc-button-prev",
+    },
+  });
+  // Blog Carousel - End
+  // --------------------------------------------------
+
+  // Partner Carousel1 - Start
+  // --------------------------------------------------
+  const partnerLogoCarousel = new Swiper('.partner_logo_carousel', {
+
+    loop: true,
+    speed: 5000,
+    spaceBetween: 30,
+    grabCursor: false,
+    centeredSlides: true,
+    allowTouchMove: false,
+    autoplay: {
+      delay: 0,
+      disableOnInteraction: true,
+    },
+    breakpoints: {
+      0: {
+        slidesPerView: 2,
+      },
+      991: {
+        slidesPerView: 3,
+      },
+      1025: {
+        slidesPerView: 4,
+      },
+      1200: {
+        slidesPerView: 5,
+      },
+    },
+  });
+  // Partner Carousel - End
+  // --------------------------------------------------
+
+    // Partner Carousel2 - Start
+  // --------------------------------------------------
+  const partner_logo_carousel_1 = new Swiper('.partner_logo_carousel_1', {
+
+    loop: true,
+    speed: 5000,
+    spaceBetween: 10,
+    grabCursor: false,
+    centeredSlides: true,
+    allowTouchMove: false,
+    autoplay: {
+      delay: 0,
+      disableOnInteraction: true,
+      reverseDirection: true,
+    },
+    breakpoints: {
+      500: {
+        slidesPerView: 2,
+      },
+      991: {
+        slidesPerView: 3,
+      },
+      1025: {
+        slidesPerView: 4,
+      },
+      1200: {
+        slidesPerView: 5,
+      },
+    },
+  });
+  // Partner Carousel - End
+  // --------------------------------------------------
+
+  // Roadmap Carousel and Flex Effect - Start
+  // --------------------------------------------------
+  $('.ico_roadmap_flexbox .roadmap_block').on('mouseover', function () {
+    $('.ico_roadmap_flexbox .roadmap_block').removeClass('active');
+    $(this).addClass('active');
+  });
+
+  const memeRoadmapCarousel = new Swiper('.meme_roadmap_carousel', {
+    loop: true,
+    speed: 1000,
+    spaceBetween: 30,
+    grabCursor: false,
+    centeredSlides: true,
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: true,
+    },
+    breakpoints: {
+      0: {
+        slidesPerView: 1,
+      },
+      991: {
+        slidesPerView: 2,
+      },
+      1025: {
+        slidesPerView: 3,
+      },
+    },
+  });
+  // Roadmap Carousel and Flex Effect - End
+  // --------------------------------------------------
+
+  // Content Ticker Carousel - Start
+  // --------------------------------------------------
+  const contentTickerCarousel = new Swiper('.content_ticker_carousel', {
+    loop: true,
+    speed: 10000,
+    spaceBetween: 60,
+    grabCursor: false,
+    centeredSlides: true,
+    allowTouchMove: false,
+    autoplay: {
+      delay: 0,
+      disableOnInteraction: true,
+    },
+  });
+  // Content Ticker Carousel - End
+  // --------------------------------------------------
+
+  // Roadmap Block Active Effect - Start
+  // --------------------------------------------------
+  const $cards = $('.roadmap_carousel .swiper-slide .roadmap_block');
+  let activeCard = null;
+  $cards.on('mouseover', function () {
+    if (activeCard) {
+      $(activeCard).removeClass('active');
+    }
+    $(this).addClass('active');
+  });
+  $cards.on('mouseleave', function () {
+    activeCard = this;
+  });
+  // Roadmap Block Active Effect - End
+  // --------------------------------------------------
+
+
+  // Language Select - Start
+  // --------------------------------------------------
+  const locales = ["en-GB", "ar-SA", "zh-CN", "de-DE", "es-ES", "fr-FR", "hi-IN", "it-IT", "in-ID", "ja-JP", "ko-KR", "nl-NL", "no-NO", "pl-PL", "pt-BR", "sv-SE", "fi-FI", "th-TH", "tr-TR", "uk-UA", "vi-VN", "ru-RU", "he-IL"];
+
+  function getFlagSrc(countryCode) {
+    return /^[A-Z]{2}$/.test(countryCode)
+      ? `https://flagsapi.com/${countryCode.toUpperCase()}/shiny/64.png`
+      : "";
+  }
+
+  $(document).ready(function () {
+    function setSelectedLocale(locale) {
+      const intlLocale = new Intl.Locale(locale);
+
+      const $dropdownContent = $("#language_dropdown > ul");
+      $dropdownContent.empty();
+
+      const otherLocales = locales.filter(loc => loc !== locale);
+      $.each(otherLocales, function (index, otherLocale) {
+        const otherIntlLocale = new Intl.Locale(otherLocale);
+        const otherLangName = new Intl.DisplayNames([otherLocale], { type: "language" }).of(otherIntlLocale.language);
+
+        const $listEl = $("<li>").html(`${otherLangName} <img src="${getFlagSrc(otherIntlLocale.region)}" />`);
+        $listEl.val(otherLocale);
+
+        $listEl.on("mousedown", function () {
+          setSelectedLocale(otherLocale);
+        });
+
+        $dropdownContent.append($listEl);
+      });
+
+      $("#language_active_btn").html(`<span><img src="${getFlagSrc(intlLocale.region)}" /></span> <i class="fa-solid fa-angle-down"></i>`);
+    }
+
+    setSelectedLocale(locales[0]);
+
+    const browserLang = new Intl.Locale(navigator.language).language;
+    $.each(locales, function (index, locale) {
+      const localeLang = new Intl.Locale(locale).language;
+      if (localeLang === browserLang) {
+        setSelectedLocale(locale);
+        return false; // Break loop
+      }
+    });
+  });
+  // Language Select - End
+  // --------------------------------------------------
+
+// Video Scrubbing Logic - Start
+  // --------------------------------------------------
+ function initVideoScrub() {
+    const scrubContainer = document.querySelector('#video_scrub_01');
+    if (!scrubContainer) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const video = scrubContainer.querySelector('video');
+    const triggerEl = scrubContainer;
+    const pinContainer = scrubContainer.querySelector('.pinned-container');
+    const overlays = scrubContainer.querySelectorAll('.overlay-item');
+    
+    // Configuración
+    const slidesCount = overlays.length; 
+    const minDuration = slidesCount + 1; // Ajusta la "duración" física del scroll
+
+    // Función principal para instanciar GSAP una vez que el video tiene metadata
+    const setupScrollTrigger = () => {
+      
+      // 1. Pinned Video ScrollTrigger
+      ScrollTrigger.create({
+        trigger: triggerEl,
+        pin: pinContainer,
+        start: 'top top',
+        // El end define cuánto scroll hay que hacer para que termine el video
+        end: () => `+=${window.innerHeight * minDuration}px`,
+        scrub: 0.7, // 0.5s de delay para suavizar el scrub junto con tu smooth-scroll.js
+        invalidateOnRefresh: true,
+        //markers: true,
+        onUpdate: (self) => {
+          // Animamos el currentTime del video basado en el progreso
+          if (!isNaN(video.duration)) {
+            video.currentTime = self.progress * video.duration;
+            
+          }
+        }
+      });
+
+      // 2. Animaciones de entrada para las Tarjetas
+      overlays.forEach((overlay, i) => {
+        // Distribuimos las tarjetas a lo largo del contenedor absoluto
+        const topPercent = (i / (minDuration - 1)) * 100;
+        //overlay.style.setProperty('--top-percent', `${topPercent}%`);
+
+        const animationEl = overlay.querySelector('.card-content');
+        
+        // Estado inicial
+        gsap.set(animationEl, { y: 100, opacity: 0, scale: 0.9 });
+
+        // Animación al hacer scroll
+        gsap.to(animationEl, {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          scrollTrigger: {
+            trigger: overlay.querySelector('overlay-item'),
+            //start:`center top`,
+            //end: `center 300px`,
+
+            //start: () => top ${window.innerHeight * 0.9}px`,
+            //end: () => bottom ${window.innerHeight * 0.1}px`,
+            scrub: true,
+            invalidateOnRefresh: true,
+            markers: true,
+            
+          }
+        });
+      });
+
+      ScrollTrigger.refresh();
+    };
+
+    // Asegurarnos de que el video carga antes de calcular duraciones
+    if (video.readyState >= 2) {
+      setupScrollTrigger();
+    } else {
+      video.addEventListener('loadedmetadata', setupScrollTrigger);
+    }
+  }
+
+  // Llamar la función cuando cargue la ventana para asegurar dimensiones
+  $(window).on("load", function () {
+    initVideoScrub();
+  });
+  
+/*
+function initVideoScrub() {
+  const scrubContainer = document.querySelector('#video_scrub_01');
+  if (!scrubContainer) return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const video = scrubContainer.querySelector('video');
+  const overlays = scrubContainer.querySelectorAll('.overlay-item');
+
+  const setupScrollTrigger = () => {
+    // 1. Creamos el Timeline Maestro. 
+    // Pineamos TODO el contenedor padre, así los textos se quedan con el video.
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: scrubContainer,
+        pin: true,
+        start: 'top top',
+        end: () => `+=${window.innerHeight * (overlays.length + 1)}px`, // Altura dinámica
+        scrub: 1, // Añade un poco de suavidad (1 segundo de catch-up)
+        invalidateOnRefresh: true,
+      }
+    });
+
+    // 2. Animamos el tiempo del video (va de 0 a su duración total)
+    // El video ocupará todo el "tiempo" del timeline (duration: 1)
+    tl.to(video, {
+      currentTime: video.duration || 1,
+      ease: 'none',
+      duration: 1 
+    }, 0);
+
+    // 3. Matemáticas para sincronizar las tarjetas
+    const cardDuration = 1 / overlays.length; 
+
+    overlays.forEach((overlay, i) => {
+      const animationEl = overlay.querySelector('.card-content');
+      const startTime = i * cardDuration; 
+
+      // Estado inicial (Abajo, transparentes y ligeramente pequeñas)
+      gsap.set(animationEl, { y: 80, opacity: 0, scale: 0.95 });
+
+      // Fade In de la tarjeta (Toma el 30% del tiempo de esa sección)
+      tl.to(animationEl, {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        ease: 'power2.out',
+        duration: cardDuration * 0.3
+      }, startTime);
+
+      // Fade Out de la tarjeta (Toma el 30% del tiempo, se dispara antes de la siguiente)
+      // Opcional: Si quieres que la última tarjeta se quede visible, añade: if (i !== overlays.length - 1) {
+      tl.to(animationEl, {
+        y: -80,
+        opacity: 0,
+        scale: 1.05,
+        ease: 'power2.in',
+        duration: cardDuration * 0.3
+      }, startTime + (cardDuration * 0.7)); 
+      // } // (cierre del if opcional)
+    });
+  };
+
+  // Asegurarnos de que el video haya cargado sus metadatos antes de calcular duraciones
+  if (video.readyState >= 2) {
+    setupScrollTrigger();
+  } else {
+    video.addEventListener('loadedmetadata', setupScrollTrigger);
+  }
+}
+// Llama a la función cuando cargue la ventana para asegurar dimensiones
+  $(window).on("load", function () {
+    initVideoScrub();
+  });
+*/
+
+  // Video Scrubbing Logic - End
+  // --------------------------------------------------
+
+
+})(jQuery);
